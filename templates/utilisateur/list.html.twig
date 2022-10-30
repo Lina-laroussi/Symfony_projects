@@ -1,4 +1,4 @@
-<h1>Liste des uitlisateurs</h1>
+<h1>Liste des utilisateurs</h1>
 
 <table border=1>
 <tr>
@@ -7,6 +7,8 @@
   <td>prenom</td>
   <td>date de naissance</td>
   <td>Ajouter compte</td>
+  <td>Supprimer</td>
+  <td>Modifier</td>
 </tr>
 
 {%for utilisateur in utilisateurs %}
@@ -17,8 +19,12 @@
     <td>{{utilisateur.prenom}}</td>
     <td>{{utilisateur.birthday |date}}</td>
     <td><a href="{{path('add_compte',{'cin':utilisateur.cin})}}"/>Ajouter compte</td>
-    
+    <td><a href="{{path('update_user',{'cin':utilisateur.cin})}}"/>Modifier utilisateur </td>
+    <td><a href="{{path('remove_user',{'cin':utilisateur.cin})}}"/>Supprimer utilisateur</td>
 </tr>
 {% endfor %}
 
 <table>
+
+    <td><a href="{{path('add_user')}}"/>Ajouter utilisateur</td>
+

@@ -1,0 +1,27 @@
+<h1>Liste des comptes</h1>
+
+<table border=1>
+<tr>
+  <td>Ref</td>
+  <td>Agence</td>
+  <td>Utilisateur</td>
+  <td>date de création</td>
+  <td>Supprimer</td>
+  <td>Modifier</td>
+</tr>
+
+{%for compte in comptes %}
+<tr>
+  
+    <td>{{compte.ref}}</td>
+    <td>{{compte.agence}}</td>
+    <td>{{compte.utilisateur.nom}}</td>
+    <td>{{compte.createdAt |date}}</td>    
+    <td><a href="{{path('removeC' , {'ref':compte.ref})}}"/>supprimer</td>
+    <td><a href="{{path('updateC' , {'ref':compte.ref})}}"/>modifier</td>
+</tr>
+{% endfor %}
+
+<table>
+
+ <td><a href="{{path('add')}}"/>Ajouter compte</td>

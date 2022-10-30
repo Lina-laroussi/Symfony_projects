@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping\JoinColumn;
 class Utilisateur
 {
     #[ORM\Id]
+    #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $cin = null;
 
