@@ -1,0 +1,24 @@
+<h1>Liste des uitlisateurs</h1>
+
+<table border=1>
+<tr>
+  <td>cin</td>
+  <td>Nom</td>
+  <td>prenom</td>
+  <td>date de naissance</td>
+  <td>Ajouter compte</td>
+</tr>
+
+{%for utilisateur in utilisateurs %}
+<tr>
+  
+    <td>{{utilisateur.cin}}</td>
+    <td>{{utilisateur.nom}}</td>
+    <td>{{utilisateur.prenom}}</td>
+    <td>{{utilisateur.birthday |date}}</td>
+    <td><a href="{{path('add_compte',{'cin':utilisateur.cin})}}"/>Ajouter compte</td>
+    
+</tr>
+{% endfor %}
+
+<table>
