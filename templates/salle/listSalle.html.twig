@@ -1,0 +1,23 @@
+<h1>Liste des salles</h1>
+
+<table border=1>
+<tr>
+  <td>ID</td>
+  <td>Name</td>
+  <td>Supprimer</td>
+  <td>Modifier</td>
+</tr>
+
+{%for salle in salles %}
+<tr>
+  
+    <td>{{salle.id}}</td>
+    <td>{{salle.name}}</td>
+    <td><a href="{{path('remove_salle' , {'id':salle.id} )}}"/>supprimer</td>
+    <td><a href="{{path('update_salle' , {'id':salle.id} )}}"/>modifier</td>
+</tr>
+{% endfor %}
+
+<table>
+
+ <td><a href="{{path('add_salle')}}"/>Ajouter salle</td>

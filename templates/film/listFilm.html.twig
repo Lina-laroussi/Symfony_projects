@@ -1,0 +1,25 @@
+<h1>Liste des Films</h1>
+
+<table border=1>
+<tr>
+  <td>ID</td>
+  <td>Titre</td>
+  <td>Date</td>
+  <td>Salle</td>
+</tr>
+
+{%for film in films %}
+<tr>
+  
+    <td>{{film.id}}</td>
+    <td>{{film.titre}}</td>
+    <td>{{film.date |date}}</td>
+    <td>{{film.salle.name}}</td>
+    <td><a href="{{path('remove_film' , {'id':film.id} )}}"/>supprimer</td>
+    <td><a href="{{path('update_film' , {'id':film.id} )}}"/>modifier</td>
+</tr>
+{% endfor %}
+
+<table>
+
+ <td><a href="{{path('add_salle')}}"/>Ajouter Film</td>
