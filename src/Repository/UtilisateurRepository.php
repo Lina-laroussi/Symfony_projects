@@ -91,7 +91,7 @@ class UtilisateurRepository extends ServiceEntityRepository
         $req = $this->createQueryBuilder('u')
             ->select('u.nom')
             ->join('u.comptes', 'c')
-            ->Where("c.ref = : ref")
+            ->Where("c.ref=:ref")
             ->setParameter('ref', $ref)
             ->getQuery()
             ->getResult();

@@ -1,0 +1,13 @@
+{% for candidat in user %}
+<h1>liste des sujets adequats d'un candidat : {{candidat.nom}} {{candidat.prenom}}
+
+
+<ul>
+ {% for sujet in sujets %}
+  {%if (sujet.nbPoints <=  candidat.score) and (candidat.motcle in sujet.description)  %}
+    <li>{{sujet.ref}} - {{sujet.titre}}</li>
+    <a href="{{path('affecter_sujet',{'id':candidat.id ,'ref':sujet.ref})}}"/>affecter</a>
+  {%endif%}
+ {%endfor%}
+</ul>
+{%endfor%}

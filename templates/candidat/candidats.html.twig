@@ -1,0 +1,24 @@
+<h1>Liste des candidats</h1>
+
+<table border=1>
+<tr>
+  <td>Id</td>
+  <td>Nom</td>
+  <td>Prenom</td>
+  <td>Sujet</td>
+  <td>Supprimer</td>
+
+</tr>
+
+{%for candidat in candidats %}
+<tr>
+  
+    <td>{{candidat.id}}</td>
+    <td>{{candidat.nom}}</td>
+    <td>{{candidat.prenom}}</td>  
+    <td>{{candidat.sujet.titre}}</td>
+    <td><a href="{{path('removeCandidat' , {'id':candidat.id})}}"/>supprimer</td>
+</tr>
+{% endfor %}
+
+<table>

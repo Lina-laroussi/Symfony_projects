@@ -1,0 +1,19 @@
+
+
+<h1>Liste des candidats</h1>
+
+{%for candidat in candidates %}
+
+
+{{candidat.nom}} - {{candidat.prenom}}
+<ul>
+   <li>Id : {{candidat.id}}</li>
+   <li>Score : {{candidat.score}}</li>
+   <li>Mot clé : {{candidat.motcle}}</li>
+   <li>Sujet :  {{ candidat.sujet.titre }}</li>
+    <li><a href="{{path('sujet_adequat' , {'id':candidat.id})}}"/> Simulation</a> </li>
+</ul>
+
+
+{%endfor%}
+

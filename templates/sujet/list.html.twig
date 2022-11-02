@@ -1,0 +1,25 @@
+<h1>Liste des sujets</h1>
+
+
+{{form(f)}}
+
+
+<table border=1>
+<tr>
+  <td>Reference</td>
+  <td>Titre</td>
+  <td>Description</td>
+  <td>nbPoints</td>
+</tr>
+
+{%for sujet in sujets %}
+<tr>
+  
+    <td>{{sujet.ref}}</td>
+    <td>{{sujet.titre}}</td>
+    <td>{{sujet.description}}</td>
+    <td>{{sujet.nbpoints }}</td>
+</tr>
+{% endfor %}
+
+<table>
