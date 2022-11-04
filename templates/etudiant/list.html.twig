@@ -1,0 +1,33 @@
+<h1>Liste des etudiants</h1>
+
+
+{{form(f)}}
+
+<table border=1>
+<tr>
+  <td>cin</td>
+  <td>Nom</td>
+  <td>Prenom</td>
+  <td>Niveau</td>
+  <td>Supprimer</td>
+  <td>Modifier</td>
+  <td>Noter</td>
+ 
+</tr>
+
+{%for etudiant in etudiants %}
+<tr>
+  
+    <td>{{etudiant.id}}</td>
+    <td>{{etudiant.nom}}</td>
+    <td>{{etudiant.prenom}}</td>
+    <td>{{etudiant.niveau}}</td>   
+    <td><a href="{{path('removeE' , {'id':etudiant.id})}}"/>supprimer</td>
+    <td><a href="{{path('updateE' , {'id':etudiant.id})}}"/>modifier</td>
+    <td><a href="{{path('affecter_note' , {'id':etudiant.id})}}"/>Noter</td>
+</tr>
+{% endfor %}
+
+<table>
+
+ <td><a href="{{path('add_etudiant')}}"/>Ajouter etudiant</td>
