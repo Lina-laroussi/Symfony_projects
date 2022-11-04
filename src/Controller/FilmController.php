@@ -7,6 +7,7 @@ use App\Form\FilmType;
 use App\Form\RechercheType;
 use App\Repository\FilmRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bridge\Doctrine\Form\Type\DoctrineType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,6 +48,7 @@ class FilmController extends AbstractController
     public function listFilm(FilmRepository $repo): Response
     {
 
+        //$result = $this->getDoctrine()->getRepository(Film::class)->findAll();
         $result = $repo->findAll();
 
         return $this->render('film/listFilm.html.twig', [
@@ -65,10 +67,29 @@ class FilmController extends AbstractController
         return $this->redirectToRoute('list_film');
     }
 
+
+    #[Route('/removeF/{id}', name: 'removeFilm')]
+    public function removeFilm(FilmRepository $repo, $id, ManagerRegistry $em): Response
+    {
+
+        //$film = $repo->find($id);
+        $film = $repo->fetchFilm($id);
+        if ($film) {
+            $film = $repo->find($id);
+            $result = $em->getManager();
+            $result->remove($film);
+            $result->flush();
+            return $this->redirectToRoute('list_film');
+        } else {
+            return new Response("erreur on peut pas supprimer un film");
+        }
+    }
+
     #[Route('/updateFilm/{id}', name: 'update_film')]
     public function updateFilm(Request $req, $id, ManagerRegistry $em, filmRepository $repo): Response
     {
-        $film = $repo->find($id);
+        $film = $repo->findById($id);
+        dd($film);
         $form = $this->createForm(FilmType::class, $film);
         $form->handleRequest($req);
         if ($form->isSubmitted()) {
@@ -86,7 +107,7 @@ class FilmController extends AbstractController
     public function rechercherFilm(Request $req, ManagerRegistry $em, filmRepository $repo): Response
     {
 
-        $result = $repo->fetchFilm();
+        $result = $repo->fetchFilms();
         $form = $this->createForm(RechercheType::class);
         $form->handleRequest($req);
         if ($form->isSubmitted()) {
@@ -98,5 +119,15 @@ class FilmController extends AbstractController
             'f' => $form->createView(),
             'films' => $result
         ]);
+    }
+
+    #[Route('/query', name: 'query')]
+    public function queryBuilder(filmRepository $repo): Response
+    {
+
+        $result = $repo->fetchFilmByLettre();
+        dd($result);
+
+        return $this->render('film/rechercheFilm.html.twig', []);
     }
 }

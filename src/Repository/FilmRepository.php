@@ -65,7 +65,7 @@ class FilmRepository extends ServiceEntityRepository
     //    }
 
 
-    public function fetchFilm()
+    public function fetchFilms()
     {
         return $this->createQueryBuilder('f')
             ->getQuery()
@@ -79,5 +79,24 @@ class FilmRepository extends ServiceEntityRepository
             ->setParameter('titre', $titre)
             ->getQuery()
             ->getResult();
+    }
+
+    public function fetchFilm($id)
+    {
+        return $this->createQueryBuilder('f')
+            ->join('f.salle', 's')
+            ->Where("f.id =:id")
+            ->andWhere(" s.name = 'One' ")
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function fetchFilmByLettre()
+    {
+        $em = $this->getEntityManager();
+        $req = $em->createQuery("select f from App\Entity\Film f where f.titre in (:value1,:value2) ")
+            ->setParameters(['value1' => 'yargi', 'value2' => 'titanic']);
+        return $req->getResult();
     }
 }
