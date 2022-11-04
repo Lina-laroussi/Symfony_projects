@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Film;
+use App\Entity\Salle;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -16,9 +17,10 @@ class FilmType extends AbstractType
         $builder
             ->add('titre')
             ->add('dateTime')
-            ->add('salle ', EntityType::class, [
+            ->add('Salle', EntityType::class, [
+
                 'class' => Salle::class,
-                'choice_label' => 'salle_id',
+                'choice_label' => 'id',
                 'multiple' => false,
                 'expanded' => false
             ])

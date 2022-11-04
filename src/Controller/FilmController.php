@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Film;
 use App\Form\FilmType;
+use App\Form\RechercheType;
 use App\Repository\FilmRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,6 +33,7 @@ class FilmController extends AbstractController
             $result->persist($film);
             $result->flush();
             $result->flush();
+
 
             return $this->redirectToRoute('list_film');
         }
@@ -67,7 +69,7 @@ class FilmController extends AbstractController
     public function updateFilm(Request $req, $id, ManagerRegistry $em, filmRepository $repo): Response
     {
         $film = $repo->find($id);
-        $form = $this->createForm(SalleType::class, $film);
+        $form = $this->createForm(FilmType::class, $film);
         $form->handleRequest($req);
         if ($form->isSubmitted()) {
             $result = $em->getManager();
@@ -77,6 +79,24 @@ class FilmController extends AbstractController
 
         return $this->render('film/updateFilm.html.twig', [
             'f' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/rechercherFilm', name: 'search_film')]
+    public function rechercherFilm(Request $req, ManagerRegistry $em, filmRepository $repo): Response
+    {
+
+        $result = $repo->fetchFilm();
+        $form = $this->createForm(RechercheType::class);
+        $form->handleRequest($req);
+        if ($form->isSubmitted()) {
+            $titre = $form->getData();
+            $result = $repo->fetchFilmByTitre($titre);
+        }
+
+        return $this->render('film/rechercheFilm.html.twig', [
+            'f' => $form->createView(),
+            'films' => $result
         ]);
     }
 }
